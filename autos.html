@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Venta de Autos</title>
+    
+    <Bootstrap >
+    <link href="https:" rel="stylesheet">
+    
+    <SweetAlert >
+    <script src="https:"></script>
+
+    <div class="container mt-5">
+      <h2 class="text-center">Registro </h2>
+      <form id="registroForm">
+          <div class="mb-3">
+              <label for="nombre" class="form-label">Nombre:</label>
+              <input type="text" class="form-control" id="nombre" required>
+          </div>
+          <div class="mb-3">
+              <label for="pa" class="form-label">Primer Apellido:</label>
+              <input type="text" class="form-control" id="pa" required>
+          </div>
+          <div class="mb-3">
+              <label for="sa" class="form-label">Segundo Apellido:</label>
+              <input type="text" class="form-control" id="sa" required>
+          </div>
+          <div class="mb-3">
+              <label for="telefono" class="form-label">Teléfono Móvil:</label>
+              <input type="tel" class="form-control" id="telefono" pattern="[0-9]{10}" required>
+          </div>
+          <button type="button" class="btn btn-primary" onclick="guardarRegistro()">Guardar</button>
+      </form>
+  </div>
+    <script>
+        var precio_auto, opcion, meses;
+        var cajas_radios;
+
+        document.addEventListener("DOMContentLoaded", function() {
+            document.getElementById("combo").addEventListener("change", mostrarPrecioModelo);
+            cajas_radios = document.querySelectorAll("input[type='radio']");
+            document.getElementById("txtenganche").addEventListener("keypress", filtraNumeros);
+            cajas_radios.forEach(radio => radio.addEventListener("click", asignarMeses));
+            document.getElementById("boton").addEventListener("click", calcularPago);
+        });
+
+        function asignarMeses() {
+            meses = parseInt(this.value) * 12;
+            Swal.fire("Plazo seleccionado", `Has elegido ${meses} meses de pago`, "info");
+        }
+
+        function mostrarPrecioModelo() {
+            opcion = parseInt(document.getElementById("combo").value);
+            if (opcion == 1) precio_auto = 120000;
+            else if (opcion == 2) precio_auto = 140000;
+            else if (opcion == 3) precio_auto = 200000;
+            document.getElementById("txtprecioauto").value = precio_auto;
+        }
+
+        function calcularPago() {
+            var enganche = parseFloat(document.getElementById("txtenganche").value);
+            if (isNaN(enganche) || enganche <= 0) {
+                Swal.fire("Error", "Por favor ingresa un enganche válido", "error");
+                return;
+            }
+
+            var pago_mensual = (precio_auto - enganche) / meses;
+            document.getElementById("txtpagomensual").value = pago_mensual.toFixed(2);
+
+            Swal.fire("Cálculo realizado", `El pago mensual será de $${pago_mensual.toFixed(2)}`, "success");
+        }
+
+        function filtraNumeros(event) {
+            if (event.keyCode < 48 || event.keyCode > 57) {
+                event.preventDefault();
+            }
+        }
+    </script>
+</head>
+<body class="container mt-5">
+
+    <div class="card shadow-lg p-4">
+        <h2 class="text-center text-primary mb-4">Venta de Autos</h2>
+
+        <form>
+            <div class="mb-3">
+                <label for="combo" class="form-label">Selecciona un modelo de auto:</label>
+                <select class="form-select" id="combo">
+                    <option value="0">Modelo</option>
+                    <option value="1">Versa Advanced</option>
+                    <option value="2">Mazda MX-5 2021</option>
+                    <option value="3">Mazda MX-9 2022</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Precio del auto:</label>
+                <input type="text" class="form-control" id="txtprecioauto" placeholder="Precio" readonly>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Enganche:</label>
+                <input type="text" class="form-control" id="txtenganche" placeholder="Enganche">
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Plazo de pago:</label>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="rad" value="1">
+                    <label class="form-check-label">1 año (12 meses)</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="rad" value="2">
+                    <label class="form-check-label">2 años (24 meses)</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="rad" value="3">
+                    <label class="form-check-label">3 años (36 meses)</label>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Pago mensual:</label>
+                <input type="text" class="form-control" id="txtpagomensual" value="0.0" readonly>
+            </div>
+
+            <button type="button" class="btn btn-primary w-100" id="boton">Calcular Pago</button>
+        </form>
+    </div>
+
+    <script>
+        function guardarRegistro() {
+            let nombre = document.getElementById("nombre").value.trim();
+            let pa = document.getElementById("pa").value.trim();
+            let sa = document.getElementById("sa").value.trim();
+            let telefono = document.getElementById("telefono").value.trim();
+            
+            if (!nombre || !pa || !sa || !telefono) {
+                Swal.fire('Error', 'Todos los campos son obligatorios', 'error');
+                return;
+            }
+
+            if (!/^[0-9]{10}$/.test(telefono)) {
+                Swal.fire('Error', 'El teléfono debe tener 10 dígitos', 'error');
+                return;
+            }
+            
+            Swal.fire('Éxito', 'Registro guardado correctamente', 'success');
+            
+        }
+    </script>
+
+    
+</body>
+</html>
