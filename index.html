@@ -5,34 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Venta de Autos</title>
     
-    <Bootstrap >
-    <link href="https:" rel="stylesheet">
+    <!--Bootstrap 5--->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     
-    <SweetAlert >
-    <script src="https:"></script>
+    <!--SweetAlert --->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+     
 
     <div class="container mt-5">
-      <h2 class="text-center">Registro </h2>
-      <form id="registroForm">
-          <div class="mb-3">
-              <label for="nombre" class="form-label">Nombre:</label>
-              <input type="text" class="form-control" id="nombre" required>
-          </div>
-          <div class="mb-3">
-              <label for="pa" class="form-label">Primer Apellido:</label>
-              <input type="text" class="form-control" id="pa" required>
-          </div>
-          <div class="mb-3">
-              <label for="sa" class="form-label">Segundo Apellido:</label>
-              <input type="text" class="form-control" id="sa" required>
-          </div>
-          <div class="mb-3">
-              <label for="telefono" class="form-label">Teléfono Móvil:</label>
-              <input type="tel" class="form-control" id="telefono" pattern="[0-9]{10}" required>
-          </div>
-          <button type="button" class="btn btn-primary" onclick="guardarRegistro()">Guardar</button>
-      </form>
-  </div>
+        <h2 class="text-center">Registro</h2>
+        <form id="registroForm">
+            <div class="mb-3">
+                <label for="nombre" class="form-label">Nombre:</label>
+                <input type="text" class="form-control" id="nombre" required>
+            </div>
+            <div class="mb-3">
+                <label for="pa" class="form-label">Primer Apellido:</label>
+                <input type="text" class="form-control" id="pa" required>
+            </div>
+            <div class="mb-3">
+                <label for="sa" class="form-label">Segundo Apellido:</label>
+                <input type="text" class="form-control" id="sa" required>
+            </div>
+            <div class="mb-3">
+                <label for="telefono" class="form-label">Teléfono Móvil:</label>
+                <input type="tel" class="form-control" id="telefono" pattern="[0-9]{10}" required>
+            </div>
+            
+        </form>
+    </div>
+
     <script>
         var precio_auto, opcion, meses;
         var cajas_radios;
@@ -125,32 +127,12 @@
                 <input type="text" class="form-control" id="txtpagomensual" value="0.0" readonly>
             </div>
 
-            <button type="button" class="btn btn-primary w-100" id="boton">Calcular Pago</button>
+            <button type="button" class="btn btn-primary w-100" id="boton">Calcular Pago</button><br><br>
+            <button type="button" class="btn btn-primary" onclick="guardarRegistro()">Guardar</button>
         </form>
     </div>
 
-    <script>
-        function guardarRegistro() {
-            let nombre = document.getElementById("nombre").value.trim();
-            let pa = document.getElementById("pa").value.trim();
-            let sa = document.getElementById("sa").value.trim();
-            let telefono = document.getElementById("telefono").value.trim();
-            
-            if (!nombre || !pa || !sa || !telefono) {
-                Swal.fire('Error', 'Todos los campos son obligatorios', 'error');
-                return;
-            }
-
-            if (!/^[0-9]{10}$/.test(telefono)) {
-                Swal.fire('Error', 'El teléfono debe tener 10 dígitos', 'error');
-                return;
-            }
-            
-            Swal.fire('Éxito', 'Registro guardado correctamente', 'success');
-            
-        }
-    </script>
-
-    
+    <!--Bootstrap 5---> 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
